@@ -451,3 +451,5 @@ button.btn { font-family: var(--font-ui); }
 /* Logo */
 .brand__mark { height: 32px; width: auto; flex: 0 0 auto; }
 .hero__media .hero__logo { width: clamp(170px, 42%, 250px); height: auto; margin: clamp(48px, 7vw, 80px) auto; }
+/* Keep 禅茶一味 together instead of breaking between characters */
+:root[data-lang="zh"] .h-display { word-break: keep-all; }
