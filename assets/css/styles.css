@@ -19,16 +19,16 @@
   --dark-3: #142A6C;
   --dark-text: #EEF6F8;
   --dark-mute: #B9C9E6;
-  --gold: #8DBF5A;        /* green tea leaf (token name kept from the original) */
-  --gold-soft: #C6E296;   /* light sencha green, for highlights on dark */
-  --gold-ink: #3B6A20;    /* deep matcha green, for text on light */
+  --gold: #3F6E2A;        /* deep matcha leaf (token name kept from the original) */
+  --gold-soft: #8DB563;   /* matcha green, for highlights on dark */
+  --gold-ink: #22421A;    /* dark matcha green, for text on light */
   --rust: #17739A;        /* sky blue (was rust) */
   --rust-bg: rgba(23, 115, 154, 0.12);
   --on-accent: #FFFFFF;
   --mist: #DCE7EE;        /* image placeholders */
   --hair-dark: rgba(238, 246, 248, 0.15);
   --glow-blue: rgba(58, 92, 200, 0.55);
-  --glow-mint: rgba(128, 184, 80, 0.36);
+  --glow-mint: rgba(60, 115, 45, 0.45);
   --glow-sky: rgba(60, 140, 215, 0.28);
 
   --font-display: "Oswald", "Arial Narrow", sans-serif;
@@ -369,7 +369,7 @@ a.card:hover { border-color: var(--accent); }
 .hero__mark {
   font-family: "Noto Serif SC", "Songti SC", serif; font-weight: 700; color: var(--dark-text);
   writing-mode: vertical-rl; font-size: clamp(56px, 8vw, 96px); letter-spacing: 18px; line-height: 1;
-  margin: clamp(48px, 7vw, 80px) auto; text-shadow: 0 0 40px rgba(198, 226, 150, 0.2);
+  margin: clamp(48px, 7vw, 80px) auto; text-shadow: 0 0 40px rgba(141, 181, 99, 0.2);
 }
 .hero__mark span { color: var(--gold-soft); }
 
@@ -465,7 +465,7 @@ button.btn { font-family: var(--font-ui); }
 body {
   background:
     radial-gradient(1100px 700px at 100% -10%, rgba(120, 150, 230, 0.18), transparent 60%),
-    radial-gradient(900px 700px at -10% 40%, rgba(141, 191, 90, 0.16), transparent 60%),
+    radial-gradient(900px 700px at -10% 40%, rgba(63, 110, 42, 0.14), transparent 60%),
     var(--bg);
   background-attachment: fixed;
 }
@@ -479,7 +479,7 @@ body {
 .hero__media {
   background:
     radial-gradient(ellipse 80% 70% at 70% 20%, rgba(80, 110, 210, 0.38), transparent 70%),
-    radial-gradient(ellipse 70% 60% at 20% 90%, rgba(128, 184, 80, 0.30), transparent 70%),
+    radial-gradient(ellipse 70% 60% at 20% 90%, rgba(60, 115, 45, 0.45), transparent 70%),
     rgba(255, 255, 255, 0.04);
   border-left: 1px solid var(--hair-dark);
 }
@@ -489,7 +489,7 @@ body {
 .site-footer {
   background:
     radial-gradient(circle at 100% 0%, rgba(58, 92, 200, 0.3), transparent 45%),
-    radial-gradient(circle at 0% 100%, rgba(128, 184, 80, 0.22), transparent 45%),
+    radial-gradient(circle at 0% 100%, rgba(60, 115, 45, 0.45), transparent 45%),
     var(--dark);
 }
 .card, .teacher, .offering, .report, .ecard, .family, .notice { box-shadow: 0 1px 2px rgba(14, 29, 62, 0.04), 0 8px 24px rgba(14, 29, 62, 0.05); }
@@ -522,4 +522,9 @@ body {
 .ecard--gold .family__url { color: var(--gold-ink); }
 .label--accent { color: var(--gold-ink); }
 /* Full-width bands get a faint green-tea wash */
-.band { background: linear-gradient(180deg, #F3F8EC 0%, #EEF5E4 100%); border-color: rgba(59, 106, 32, 0.12); }
+.band { background: linear-gradient(180deg, #ECF2E5 0%, #E3ECD8 100%); border-color: rgba(59, 106, 32, 0.12); }
+
+/* Deep matcha is too dark for small text on navy: use the lighter matcha there */
+.tile__k, .footer-title,
+.hero .label--gold, .panel .label--gold, .reg .label--gold, .callout .label--gold, .card--dark .label--gold { color: var(--gold-soft); }
+.pill__icon--gold { color: var(--on-accent); }
