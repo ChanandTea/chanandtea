@@ -12,11 +12,11 @@
   --border: rgba(14, 29, 62, 0.08);
   --border-strong: rgba(14, 29, 62, 0.2);
   --rule: rgba(14, 29, 62, 0.12);
-  --accent: #2747B5;
-  --accent-hover: #1A3490;
-  --dark: #0D2160;
-  --dark-2: #13296F;
-  --dark-3: #1A3482;
+  --accent: #1D3796;
+  --accent-hover: #142A78;
+  --dark: #091848;
+  --dark-2: #0E2058;
+  --dark-3: #142A6C;
   --dark-text: #EEF6F8;
   --dark-mute: #B9C9E6;
   --gold: #79D3BF;        /* mint (was gold) */
@@ -27,9 +27,9 @@
   --on-accent: #FFFFFF;
   --mist: #DCE7EE;        /* image placeholders */
   --hair-dark: rgba(238, 246, 248, 0.15);
-  --glow-blue: rgba(78, 116, 224, 0.7);
-  --glow-mint: rgba(98, 205, 180, 0.5);
-  --glow-sky: rgba(70, 160, 230, 0.35);
+  --glow-blue: rgba(58, 92, 200, 0.55);
+  --glow-mint: rgba(90, 196, 172, 0.38);
+  --glow-sky: rgba(60, 140, 215, 0.28);
 
   --font-display: "Oswald", "Arial Narrow", sans-serif;
   --font-body: "Lora", Georgia, serif;
@@ -478,17 +478,17 @@ body {
 }
 .hero__media {
   background:
-    radial-gradient(ellipse 80% 70% at 70% 20%, rgba(110, 140, 230, 0.45), transparent 70%),
-    radial-gradient(ellipse 70% 60% at 20% 90%, rgba(121, 211, 191, 0.35), transparent 70%),
+    radial-gradient(ellipse 80% 70% at 70% 20%, rgba(80, 110, 210, 0.38), transparent 70%),
+    radial-gradient(ellipse 70% 60% at 20% 90%, rgba(100, 200, 178, 0.28), transparent 70%),
     rgba(255, 255, 255, 0.04);
   border-left: 1px solid var(--hair-dark);
 }
-.tile { background: rgba(19, 41, 111, 0.72); backdrop-filter: blur(6px); }
-.tile:hover { background: rgba(26, 52, 130, 0.85); }
-.reg__facts > div { background: rgba(19, 41, 111, 0.72); }
+.tile { background: rgba(14, 32, 88, 0.75); backdrop-filter: blur(6px); }
+.tile:hover { background: rgba(20, 42, 108, 0.88); }
+.reg__facts > div { background: rgba(14, 32, 88, 0.75); }
 .site-footer {
   background:
-    radial-gradient(circle at 100% 0%, rgba(78, 116, 224, 0.35), transparent 45%),
+    radial-gradient(circle at 100% 0%, rgba(58, 92, 200, 0.3), transparent 45%),
     radial-gradient(circle at 0% 100%, rgba(98, 205, 180, 0.22), transparent 45%),
     var(--dark);
 }
