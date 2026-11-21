@@ -507,3 +507,9 @@ body {
 /* Glass cards instead of hairline grids (no bright empty cells) */
 .tiles, .reg__facts { background: transparent; gap: 12px; border-radius: 0; overflow: visible; }
 .tile, .reg__facts > div { border: 1px solid var(--hair-dark); border-radius: 8px; }
+
+/* Language toggle in brand blue */
+.lang-toggle { border-color: rgba(29, 55, 150, 0.35); }
+.lang-toggle button { color: var(--accent); }
+.lang-toggle button[aria-pressed="true"] { background: var(--accent); color: var(--on-accent); }
+.lang-toggle button[aria-pressed="false"]:hover { background: rgba(29, 55, 150, 0.08); }
