@@ -1,0 +1,3 @@
+{%- assign pic = include.ev.cover -%}
+{%- if pic == nil or pic == "" -%}{%- if include.ev.photos and include.ev.photos.size > 0 -%}{%- assign pic = include.ev.photos[0].image -%}{%- endif -%}{%- endif -%}
+{%- if pic and pic != "" -%}<img src="{% include img-src.html path=pic %}" alt="" loading="lazy">{%- else -%}<span class="thumb-placeholder"><img src="assets/img/mark-light.png" alt=""></span>{%- endif -%}

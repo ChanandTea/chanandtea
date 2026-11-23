@@ -1,0 +1,22 @@
+{%- assign d = include.ev.date -%}
+{%- assign e = include.ev.end_date -%}
+{%- if e and e != "" -%}
+  {%- assign dm = d | date: "%Y%m" -%}{%- assign em = e | date: "%Y%m" -%}
+  {%- assign dy = d | date: "%Y" -%}{%- assign ey = e | date: "%Y" -%}
+  {%- if dm == em -%}
+    {%- capture den -%}{{ d | date: "%-d" }}–{{ e | date: "%-d %B %Y" }}{%- endcapture -%}
+    {%- capture dzh -%}{{ d | date: "%Y年%-m月%-d" }}–{{ e | date: "%-d日" }}{%- endcapture -%}
+  {%- elsif dy == ey -%}
+    {%- capture den -%}{{ d | date: "%-d %B" }} – {{ e | date: "%-d %B %Y" }}{%- endcapture -%}
+    {%- capture dzh -%}{{ d | date: "%Y年%-m月%-d日" }}–{{ e | date: "%-m月%-d日" }}{%- endcapture -%}
+  {%- else -%}
+    {%- capture den -%}{{ d | date: "%-d %B %Y" }} – {{ e | date: "%-d %B %Y" }}{%- endcapture -%}
+    {%- capture dzh -%}{{ d | date: "%Y年%-m月%-d日" }}–{{ e | date: "%Y年%-m月%-d日" }}{%- endcapture -%}
+  {%- endif -%}
+{%- else -%}
+  {%- capture den -%}{{ d | date: "%-d %B %Y" }}{%- endcapture -%}
+  {%- capture dzh -%}{{ d | date: "%Y年%-m月%-d日" }}{%- endcapture -%}
+{%- endif -%}
+{%- if include.ev.time_en and include.ev.time_en != "" -%}{%- capture den -%}{{ den }} · {{ include.ev.time_en }}{%- endcapture -%}{%- endif -%}
+{%- if include.ev.time_zh and include.ev.time_zh != "" -%}{%- capture dzh -%}{{ dzh }} · {{ include.ev.time_zh }}{%- endcapture -%}{%- endif -%}
+{%- if include.mode == "en" -%}{{ den }}{%- elsif include.mode == "zh" -%}{{ dzh }}{%- else -%}<span class="en" lang="en">{{ den }}</span><span class="zh" lang="zh-Hans">{{ dzh }}</span>{%- endif -%}

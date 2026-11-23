@@ -528,3 +528,14 @@ body {
 .tile__k, .footer-title,
 .hero .label--gold, .panel .label--gold, .reg .label--gold, .callout .label--gold, .card--dark .label--gold { color: var(--gold-soft); }
 .pill__icon--gold { color: var(--on-accent); }
+
+/* Event without a photo */
+.thumb-placeholder { display: flex; align-items: center; justify-content: center; width: 100%; aspect-ratio: 4 / 3; border-radius: 6px; background: var(--dark); }
+.thumb-placeholder img { width: 28%; height: auto; aspect-ratio: auto; object-fit: contain; border-radius: 0; }
+.ecard .thumb-placeholder { border-radius: 0; aspect-ratio: 3 / 2; }
+.article__photos { font-size: 22px; letter-spacing: 2.6px; text-transform: uppercase; margin: 40px 0 16px; }
+:root[data-lang="zh"] .article__photos { text-transform: none; letter-spacing: 1px; }
+.event__thumb .thumb-placeholder { width: 160px; }
+.event__thumb .thumb-placeholder img, .ecard .thumb-placeholder img { width: 28%; height: auto; aspect-ratio: auto; object-fit: contain; border-radius: 0; }
+@media (max-width: 860px) { .event__thumb .thumb-placeholder { width: 120px; } }
+@media (max-width: 520px) { .event__thumb .thumb-placeholder { width: 100%; aspect-ratio: 16 / 9; } }

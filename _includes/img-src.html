@@ -1,0 +1,2 @@
+{%- comment -%} Make an image path relative so it works when the site lives in a sub-folder. {%- endcomment -%}
+{%- assign p = include.path | strip -%}{%- assign first = p | slice: 0 -%}{%- if first == "/" -%}{%- assign p = p | remove_first: "/" -%}{%- endif -%}{{ p }}

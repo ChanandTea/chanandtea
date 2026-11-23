@@ -1,0 +1,28 @@
+# Jekyll settings. GitHub Pages builds the site from this on every push to main.
+title: Chan and Tea Culture International
+description: Chan and Tea Culture International is a Canadian not-for-profit corporation sharing and promoting Chan Tea culture.
+timezone: America/Vancouver
+markdown: kramdown
+future: true   # publish upcoming events (dated in the future) too
+kramdown:
+  input: GFM
+  hard_wrap: false
+
+collections:
+  events:
+    output: true
+    permalink: /event-:name.html
+
+defaults:
+  - scope:
+      path: ""
+      type: events
+    values:
+      layout: event
+
+exclude:
+  - README.md
+  - EDITING-EVENTS.md
+  - .pages.yml
+  - Gemfile
+  - Gemfile.lock

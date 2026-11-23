@@ -1,0 +1,10 @@
+{%- assign ev = include.ev -%}
+{%- assign url = ev.url | remove_first: "/" -%}
+{%- assign last = ev.end_date | default: ev.date | date: "%Y%m%d" -%}
+<li class="event" id="e-{{ ev.slug }}" data-last="{{ last }}">
+        <a class="event__thumb" href="{{ url }}" tabindex="-1" aria-hidden="true">{% include event-thumb.html ev=ev %}</a>
+        <div><span class="event__date">{% include event-date.html ev=ev %}</span>{% if ev.place_en and ev.place_en != "" %}<span class="event__place"><span class="en" lang="en">{{ ev.place_en }}</span><span class="zh" lang="zh-Hans">{{ ev.place_zh | default: ev.place_en }}</span></span>{% endif %}</div>
+        <div><p class="event__title"><a href="{{ url }}"><span class="en" lang="en">{{ ev.title_en }}</span><span class="zh" lang="zh-Hans">{{ ev.title_zh | default: ev.title_en }}</span></a></p>
+<p class="en" lang="en">{{ ev.summary_en }}</p>
+<p class="zh" lang="zh-Hans">{{ ev.summary_zh | default: ev.summary_en }}</p><a class="textlink" href="{{ url }}"><span class="en" lang="en">Read the full story →</span><span class="zh" lang="zh-Hans">阅读全文 →</span></a></div>
+      </li>

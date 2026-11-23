@@ -1,0 +1,121 @@
+# Pages CMS editor settings (https://app.pagescms.org).
+# Lets the team add and edit events through a form instead of editing files.
+
+media:
+  input: assets/img/events
+  output: /assets/img/events
+  extensions: [jpg, jpeg, png, webp]
+  rename: safe
+
+content:
+  - name: events
+    label: Events 活动
+    type: collection
+    path: _events
+    format: yaml-frontmatter
+    filename: "{primary}.md"
+    subfolders: false
+    view:
+      fields: [title_en, title_zh, date]
+      primary: title_en
+      sort: [date, title_en]
+      default:
+        sort: date
+        order: desc
+    fields:
+      - name: title_en
+        label: Title (English)
+        type: string
+        required: true
+        description: Short name shown in the events list, e.g. "Mid-Autumn Festival Evening"
+      - name: title_zh
+        label: 标题（中文）
+        type: string
+        required: true
+      - name: date
+        label: Date (first day) 日期
+        type: date
+        required: true
+        options:
+          format: yyyy-MM-dd
+      - name: end_date
+        label: End date 结束日期 (optional)
+        type: date
+        default: ""
+        description: Only for events longer than one day. Leave empty otherwise.
+        options:
+          format: yyyy-MM-dd
+      - name: time_en
+        label: Time (English, optional)
+        type: string
+        description: e.g. 3:00–4:30 PM
+      - name: time_zh
+        label: 时间（中文，可选）
+        type: string
+        description: 例如：下午3:00–4:30
+      - name: place_en
+        label: Place (English)
+        type: string
+        description: e.g. Tung Lin Kok Yuen, Vancouver
+      - name: place_zh
+        label: 地点（中文）
+        type: string
+      - name: summary_en
+        label: Short summary (English)
+        type: text
+        description: One or two sentences for the events list and the home page.
+        options:
+          maxlength: 400
+      - name: summary_zh
+        label: 简介（中文）
+        type: text
+        options:
+          maxlength: 400
+      - name: cover
+        label: Main photo 主图
+        type: image
+        description: Shown at the top of the article and in the events list.
+      - name: cover_caption_en
+        label: Main photo caption (English, optional)
+        type: string
+      - name: cover_caption_zh
+        label: 主图说明（中文，可选）
+        type: string
+      - name: article_title_en
+        label: Article headline (English, optional)
+        type: string
+        description: A longer headline for the article page. Leave empty to use the title.
+      - name: article_title_zh
+        label: 文章标题（中文，可选）
+        type: string
+      - name: body_en
+        label: Article (English)
+        type: rich-text
+        options:
+          format: html
+      - name: body_zh
+        label: 文章（中文）
+        type: rich-text
+        options:
+          format: html
+      - name: zh_traditional
+        label: Chinese article is in Traditional characters 中文文章使用繁体字
+        type: boolean
+        default: false
+      - name: photos
+        label: More photos 更多照片
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{caption_en}"
+        fields:
+          - name: image
+            label: Photo
+            type: image
+          - name: caption_en
+            label: Caption (English)
+            type: string
+          - name: caption_zh
+            label: 说明（中文）
+            type: string

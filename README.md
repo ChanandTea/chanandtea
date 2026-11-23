@@ -4,22 +4,26 @@ Static bilingual (English / 中文) website for Chan and Tea Culture Internation
 a federal not-for-profit corporation in Canada (Corporation No. 1261468-5).
 **Not a registered charity: do not show a charity number or promise tax receipts.**
 
-Layout from padmarefuge.org; blue / mint glass palette (tokens at the top of styles.css). Plain HTML + CSS, no build step. Suited to GitHub Pages.
+Layout from padmarefuge.org; blue / mint glass palette (tokens at the top of styles.css). Jekyll site built automatically by GitHub Pages on every push to `main`. Events are edited through Pages CMS (https://app.pagescms.org); see EDITING-EVENTS.md.
 
 ## Structure
 
 ```
-index.html          Home: about, Chan and tea are one flavour, mission, vision, values, activities
-events.html         Upcoming, past events (each links to its article), history timeline
-event-*.html        One article page per event, with photos and captions (13)
-governance.html     Board and officers, purposes, activity guidelines, transparency
-involved.html       Membership, volunteer, donate, contact form
-privacy.html, accessibility.html, 404.html
-assets/css/styles.css   All styles (bilingual rules at the bottom)
+_config.yml             Jekyll settings (events collection, future events published)
+.pages.yml              Pages CMS editor form for events
+_layouts/default.html   Shared head, header, footer
+_layouts/event.html     Event article page
+_includes/              Event list item, home card, date formatting, image paths
+_events/*.md            One file per event (front matter only: titles, dates, place, summaries, article, photos)
+index.html, events.html, governance.html, involved.html, privacy.html, accessibility.html, 404.html
+assets/css/styles.css   All styles (palette tokens at the top)
 assets/js/main.js       Language toggle, mobile menu, contact form, footer year
-assets/img/             logo.png / logo-light.png (full logo), mark.png / mark-light.png (brush mark only)
-assets/img/events/      Event photos (taken from the event article .docx files)
+assets/img/events/      Event photos (uploads from the editor land here)
+EDITING-EVENTS.md       Guide for the team: adding and editing events
 ```
+
+Event pages are served at `event-<file name>.html`. Upcoming events (date in the future) show under
+"Coming up" on the Events page and move to "Past events" after the date.
 
 ## How the language toggle works
 
@@ -38,12 +42,13 @@ When editing, always change both the `.en` and the `.zh` version.
 Main pages use Simplified Chinese from the Chinese content pack. The event articles are in
 Traditional Chinese, exactly as supplied (marked `lang="zh-Hant"`).
 
-## Edit locally
+## Build locally
 
 ```
-python3 -m http.server 8766
+gem install --user-install jekyll kramdown-parser-gfm webrick
+jekyll serve
 ```
-then visit http://localhost:8766.
+then visit http://localhost:4000.
 
 ## Logo
 
@@ -52,6 +57,5 @@ with transparent backgrounds. The gold embossed logos are for appointment letter
 
 ## Still to do
 
-- [ ] Upcoming events
 - [ ] Contact form: currently opens the visitor's email app. Swap for a form service (e.g. Formspree) if wanted
 - [ ] Domain + GitHub Pages

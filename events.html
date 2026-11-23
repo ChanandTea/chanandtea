@@ -1,62 +1,10 @@
-<!doctype html>
-<html lang="en-CA" data-lang="en" data-title-en="Events · Chan and Tea Culture International" data-title-zh="活动记录 · 国际禅茶文化联合会">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Events · Chan and Tea Culture International</title>
-<script>
-  // Set the language before first paint so the page never flashes the wrong one.
-  (function () {
-    var l = new URLSearchParams(location.search).get('lang');
-    if (l !== 'zh' && l !== 'en') { try { l = localStorage.getItem('ctci-lang'); } catch (e) {} }
-    if (l !== 'zh' && l !== 'en') l = /^zh/i.test(navigator.language || '') ? 'zh' : 'en';
-    document.documentElement.setAttribute('data-lang', l);
-  })();
-</script>
-<meta name="description" content="Past and upcoming Chan tea gatherings, Dharma lectures, retreats and temple visits by Chan and Tea Culture International.">
-<link rel="icon" href="favicon.ico" sizes="any">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-<link rel="manifest" href="site.webmanifest">
-<meta property="og:image" content="assets/img/logo.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+SC:wght@400;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/styles.css">
-</head>
-<body>
-<a class="skip-link" href="#main"><span class="en" lang="en">Skip to content</span><span class="zh" lang="zh-Hans">跳至正文</span></a>
-
-<header class="site-header">
-  <div class="wrap">
-    <a class="brand" href="index.html">
-      <img class="brand__mark" src="assets/img/mark.png" width="26" height="32" alt="">
-      <span class="brand__name"><span class="en" lang="en">Chan and Tea Culture International</span><span class="zh" lang="zh-Hans">国际禅茶文化联合会</span></span>
-    </a>
-    <div class="header-tools">
-      <div class="lang-toggle" role="group" aria-label="Language / 语言">
-        <button type="button" data-set-lang="en" aria-pressed="true" lang="en">EN</button>
-        <button type="button" data-set-lang="zh" aria-pressed="false" lang="zh-Hans">中文</button>
-      </div>
-      <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav" data-en-label="Menu" data-zh-label="菜单" aria-label="Menu">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
-      </button>
-    </div>
-    <nav class="nav" id="site-nav" aria-label="Main">
-      <a href="index.html"><span class="en" lang="en">Home</span><span class="zh" lang="zh-Hans">首页</span></a>
-      <a href="index.html#about"><span class="en" lang="en">About</span><span class="zh" lang="zh-Hans">关于我们</span></a>
-      <a href="index.html#activities"><span class="en" lang="en">Activities</span><span class="zh" lang="zh-Hans">活动</span></a>
-      <a href="events.html" aria-current="page"><span class="en" lang="en">Events</span><span class="zh" lang="zh-Hans">活动记录</span></a>
-      <a href="governance.html"><span class="en" lang="en">Leadership &amp; Governance</span><span class="zh" lang="zh-Hans">领导与治理</span></a>
-      <a href="involved.html#contact"><span class="en" lang="en">Contact</span><span class="zh" lang="zh-Hans">联系</span></a>
-      <a class="btn btn--primary" href="involved.html"><span class="en" lang="en">Get Involved</span><span class="zh" lang="zh-Hans">参与</span></a>
-    </nav>
-  </div>
-</header>
-
-<main id="main">
-
+---
+layout: "default"
+title_en: "Events · Chan and Tea Culture International"
+title_zh: "活动记录 · 国际禅茶文化联合会"
+description: "Past and upcoming Chan tea gatherings, Dharma lectures, retreats and temple visits by Chan and Tea Culture International."
+nav: "events.html"
+---
   <section class="wrap intro">
     <div class="intro__main">
       <p class="eyebrow"><span class="en" lang="en">Events</span><span class="zh" lang="zh-Hans">活动记录</span></p>
@@ -71,7 +19,31 @@
     </nav>
   </section>
 
+  {%- assign today = site.time | date: "%Y%m%d" | plus: 0 -%}
+  {%- assign all = site.events | sort: "date" | reverse -%}
+  {%- assign upcoming_count = 0 -%}
+  {%- for ev in all -%}
+    {%- assign last = ev.end_date | default: ev.date | date: "%Y%m%d" | plus: 0 -%}
+    {%- if last >= today -%}{%- assign upcoming_count = upcoming_count | plus: 1 -%}{%- endif -%}
+  {%- endfor %}
   <section id="upcoming" class="wrap section--tight">
+    {%- if upcoming_count > 0 %}
+    <div class="section-head">
+      <div>
+        <p class="eyebrow"><span class="en" lang="en">Ongoing and Upcoming</span><span class="zh" lang="zh-Hans">进行中与即将开展</span></p>
+        <h2 class="h-section"><span class="en" lang="en">Coming up</span><span class="zh" lang="zh-Hans">即将举行</span></h2>
+      </div>
+    </div>
+    <ol class="events" id="upcoming-list">
+      {%- assign upcoming = all | reverse -%}
+      {%- for ev in upcoming -%}
+        {%- assign last = ev.end_date | default: ev.date | date: "%Y%m%d" | plus: 0 -%}
+        {%- if last >= today %}
+      {% include event-item.html ev=ev %}
+        {%- endif -%}
+      {%- endfor %}
+    </ol>
+    {%- else %}
     <div class="callout">
       <div class="stack" style="gap: 6px">
         <p class="label label--gold"><span class="en" lang="en">Ongoing and Upcoming</span><span class="zh" lang="zh-Hans">进行中与即将开展</span></p>
@@ -79,6 +51,7 @@
       </div>
       <a class="btn btn--outline-light" href="involved.html#contact"><span class="en" lang="en">Ask to be notified</span><span class="zh" lang="zh-Hans">订阅活动通知</span></a>
     </div>
+    {%- endif %}
   </section>
 
   <section id="past" class="wrap section--tight">
@@ -88,87 +61,28 @@
         <h2 class="h-section"><span class="en" lang="en">What we have shared</span><span class="zh" lang="zh-Hans">我们共同走过的</span></h2>
       </div>
     </div>
-    <ol class="events">
-      <li class="event" id="e-mid-autumn-2026">
-        <a class="event__thumb" href="event-mid-autumn-2026.html" tabindex="-1" aria-hidden="true"><img src="assets/img/events/8dbdc1143e7b.jpg" alt="" loading="lazy"></a>
-        <div><span class="event__date"><span class="en" lang="en">25 September 2026</span><span class="zh" lang="zh-Hans">2026年9月25日</span></span><span class="event__place"><span class="en" lang="en">Wutai Shan Buddhist Garden</span><span class="zh" lang="zh-Hans">五台山佛教花园</span></span></div>
-        <div><p class="event__title"><a href="event-mid-autumn-2026.html"><span class="en" lang="en">Mid-Autumn Festival Evening</span><span class="zh" lang="zh-Hans">中秋晚会</span></a></p><p class="en" lang="en">A Chan Tea performance and a blind tea-tasting competition built around Da Hong Pao rock tea.</p>
-<p class="zh" lang="zh-Hans">禅茶表演与盲品斗茶。</p><a class="textlink" href="event-mid-autumn-2026.html"><span class="en" lang="en">Read the full story →</span><span class="zh" lang="zh-Hans">阅读全文 →</span></a></div>
-      </li>
-      <li class="event" id="e-tianxin-temple-2026">
-        <a class="event__thumb" href="event-tianxin-temple-2026.html" tabindex="-1" aria-hidden="true"><img src="assets/img/events/2f831e2cad8d.jpg" alt="" loading="lazy"></a>
-        <div><span class="event__date"><span class="en" lang="en">10 September 2026</span><span class="zh" lang="zh-Hans">2026年9月10日</span></span><span class="event__place"><span class="en" lang="en">Tianxin Temple, Wuyishan</span><span class="zh" lang="zh-Hans">武夷山天心寺</span></span></div>
-        <div><p class="event__title"><a href="event-tianxin-temple-2026.html"><span class="en" lang="en">Learning the Chan Tea Arrangement</span><span class="zh" lang="zh-Hans">学习禅茶摆置：参访武夷山天心寺</span></a></p><p class="en" lang="en">Members learned how Chan tea is laid out when served and when guests are received.</p>
-<p class="zh" lang="zh-Hans">学习禅茶的摆置与待客之道。</p><a class="textlink" href="event-tianxin-temple-2026.html"><span class="en" lang="en">Read the full story →</span><span class="zh" lang="zh-Hans">阅读全文 →</span></a></div>
-      </li>
-      <li class="event" id="e-sangha-offering-2026">
-        <a class="event__thumb" href="event-sangha-offering-2026.html" tabindex="-1" aria-hidden="true"><img src="assets/img/events/0c86a75d9f8a.jpg" alt="" loading="lazy"></a>
-        <div><span class="event__date"><span class="en" lang="en">22 August 2026</span><span class="zh" lang="zh-Hans">2026年8月22日</span></span><span class="event__place"><span class="en" lang="en">Ling Yen Mountain Temple, Canada</span><span class="zh" lang="zh-Hans">加拿大灵岩山寺</span></span></div>
-        <div><p class="event__title"><a href="event-sangha-offering-2026.html"><span class="en" lang="en">Grand Sangha Offering Assembly</span><span class="zh" lang="zh-Hans">圆满的供养：加拿大灵岩山寺供僧大法会</span></a></p><p class="en" lang="en">Lay devotees offered a meal to the Sangha during Ullambana. A joint presence of Chan and Tea and the International Chan Cultural Research Association.</p>
-<p class="zh" lang="zh-Hans">供僧功德回向一切众生；与 International Chan Cultural Research Association 共同参与。</p><a class="textlink" href="event-sangha-offering-2026.html"><span class="en" lang="en">Read the full story →</span><span class="zh" lang="zh-Hans">阅读全文 →</span></a></div>
-      </li>
-      <li class="event" id="e-flower-arranging-2026">
-        <a class="event__thumb" href="event-flower-arranging-2026.html" tabindex="-1" aria-hidden="true"><img src="assets/img/events/237c4dfebeb0.jpg" alt="" loading="lazy"></a>
-        <div><span class="event__date"><span class="en" lang="en">5 July 2026</span><span class="zh" lang="zh-Hans">2026年7月5日</span></span><span class="event__place"><span class="en" lang="en">Tung Lin Kok Yuen</span><span class="zh" lang="zh-Hans">东莲觉苑</span></span></div>
-        <div><p class="event__title"><a href="event-flower-arranging-2026.html"><span class="en" lang="en">Gathering and Flower Arranging</span><span class="zh" lang="zh-Hans">东莲觉苑聚会与插花</span></a></p><p class="en" lang="en">Members arranged flowers, set up the venue and listened to a Dharma talk, to mark the temple’s twentieth anniversary.</p>
-<p class="zh" lang="zh-Hans">插花、布置场地与佛法开示。</p><a class="textlink" href="event-flower-arranging-2026.html"><span class="en" lang="en">Read the full story →</span><span class="zh" lang="zh-Hans">阅读全文 →</span></a></div>
-      </li>
-      <li class="event" id="e-time-with-chan-tea-2026">
-        <a class="event__thumb" href="event-time-with-chan-tea-2026.html" tabindex="-1" aria-hidden="true"><img src="assets/img/events/81747101a282.jpg" alt="" loading="lazy"></a>
-        <div><span class="event__date"><span class="en" lang="en">13 June 2026</span><span class="zh" lang="zh-Hans">2026年6月13日</span></span></div>
-        <div><p class="event__title"><a href="event-time-with-chan-tea-2026.html"><span class="en" lang="en">Time with Chan Tea</span><span class="zh" lang="zh-Hans">与禅茶共度的时光：道憬法师的分享</span></a></p><p class="en" lang="en">Gathering and reflection by Venerable Daojing. “Everyday is a good time for tea!”</p>
-<p class="zh" lang="zh-Hans">“每天都是喝茶的好时光！”</p><a class="textlink" href="event-time-with-chan-tea-2026.html"><span class="en" lang="en">Read the full story →</span><span class="zh" lang="zh-Hans">阅读全文 →</span></a></div>
-      </li>
-      <li class="event" id="e-mindfulness-of-breathing-2026">
-        <a class="event__thumb" href="event-mindfulness-of-breathing-2026.html" tabindex="-1" aria-hidden="true"><img src="assets/img/events/6503addd1fda.jpg" alt="" loading="lazy"></a>
-        <div><span class="event__date"><span class="en" lang="en">30 May 2026</span><span class="zh" lang="zh-Hans">2026年5月30日</span></span></div>
-        <div><p class="event__title"><a href="event-mindfulness-of-breathing-2026.html"><span class="en" lang="en">Discussion with Venerable Kaiyin and Lin Songyuan</span><span class="zh" lang="zh-Hans">安般念（十六特胜）禅法</span></a></p><p class="en" lang="en">Teaching on mindfulness of breathing, one-pointedness of mind and seeing one’s nature.</p>
-<p class="zh" lang="zh-Hans">开印法师讲授安般念。</p><a class="textlink" href="event-mindfulness-of-breathing-2026.html"><span class="en" lang="en">Read the full story →</span><span class="zh" lang="zh-Hans">阅读全文 →</span></a></div>
-      </li>
-      <li class="event" id="e-parliament-hill-2026">
-        <a class="event__thumb" href="event-parliament-hill-2026.html" tabindex="-1" aria-hidden="true"><img src="assets/img/events/534167afaf69.jpg" alt="" loading="lazy"></a>
-        <div><span class="event__date"><span class="en" lang="en">25 May 2026</span><span class="zh" lang="zh-Hans">2026年5月25日</span></span><span class="event__place"><span class="en" lang="en">Parliament Hill, Ottawa</span><span class="zh" lang="zh-Hans">渥太华国会山庄</span></span></div>
-        <div><p class="event__title"><a href="event-parliament-hill-2026.html"><span class="en" lang="en">National Gathering</span><span class="zh" lang="zh-Hans">全国集结：呼吁设立加拿大佛教文化遗产月</span></a></p><p class="en" lang="en">More than 1,000 participants and 150 monastics called on the federal government to designate May as Canadian Buddhist Heritage Month. The association was one of six main organisers, not the sole organiser.</p>
-<p class="zh" lang="zh-Hans">1000多位参加者与150位法师共聚；本会是六个主要组织者之一，不是唯一组织者。</p><a class="textlink" href="event-parliament-hill-2026.html"><span class="en" lang="en">Read the full story →</span><span class="zh" lang="zh-Hans">阅读全文 →</span></a></div>
-      </li>
-      <li class="event" id="e-bathing-buddha-2026">
-        <a class="event__thumb" href="event-bathing-buddha-2026.html" tabindex="-1" aria-hidden="true"><img src="assets/img/events/b2bfdbcc80ad.jpg" alt="" loading="lazy"></a>
-        <div><span class="event__date"><span class="en" lang="en">23–24 May 2026</span><span class="zh" lang="zh-Hans">2026年5月23–24日</span></span><span class="event__place"><span class="en" lang="en">Tung Lin Kok Yuen</span><span class="zh" lang="zh-Hans">东莲觉苑</span></span></div>
-        <div><p class="event__title"><a href="event-bathing-buddha-2026.html"><span class="en" lang="en">Bathing Buddha / Buddha’s Birthday Chan Tea</span><span class="zh" lang="zh-Hans">佛诞禅茶——东莲觉苑浴佛节</span></a></p><p class="en" lang="en">Chan Tea volunteers offered Chan Tea to visitors celebrating the Buddha’s birthday.</p>
-<p class="zh" lang="zh-Hans">禅茶义工为佛诞庆典来宾奉茶。</p><a class="textlink" href="event-bathing-buddha-2026.html"><span class="en" lang="en">Read the full story →</span><span class="zh" lang="zh-Hans">阅读全文 →</span></a></div>
-      </li>
-      <li class="event" id="e-venerable-guoqing-2026">
-        <a class="event__thumb" href="event-venerable-guoqing-2026.html" tabindex="-1" aria-hidden="true"><img src="assets/img/events/48e19b20009d.jpg" alt="" loading="lazy"></a>
-        <div><span class="event__date"><span class="en" lang="en">9 May 2026 · 3:00–4:30 PM</span><span class="zh" lang="zh-Hans">2026年5月9日 · 下午3:00–4:30</span></span><span class="event__place"><span class="en" lang="en">Tung Lin Kok Yuen, Vancouver</span><span class="zh" lang="zh-Hans">东莲觉苑</span></span></div>
-        <div><p class="event__title"><a href="event-venerable-guoqing-2026.html"><span class="en" lang="en">Buddhist Ethics of the 21st Century</span><span class="zh" lang="zh-Hans">二十一世纪佛教伦理：果清律师佛法讲座</span></a></p><p class="en" lang="en">Dharma lecture by Venerable Guoqing. A Vinaya master spoke on Buddhist ethics for the twenty-first century.</p>
-<p class="zh" lang="zh-Hans">佛法伦理讲座。</p><a class="textlink" href="event-venerable-guoqing-2026.html"><span class="en" lang="en">Read the full story →</span><span class="zh" lang="zh-Hans">阅读全文 →</span></a></div>
-      </li>
-      <li class="event" id="e-sunlight-chan-temple-2026">
-        <a class="event__thumb" href="event-sunlight-chan-temple-2026.html" tabindex="-1" aria-hidden="true"><img src="assets/img/events/f84afdded7ad.jpg" alt="" loading="lazy"></a>
-        <div><span class="event__date"><span class="en" lang="en">27 April 2026</span><span class="zh" lang="zh-Hans">2026年4月27日</span></span><span class="event__place"><span class="en" lang="en">Sunshine Coast</span><span class="zh" lang="zh-Hans">阳光海岸</span></span></div>
-        <div><p class="event__title"><a href="event-sunlight-chan-temple-2026.html"><span class="en" lang="en">Visit to Sunlight Chan Temple</span><span class="zh" lang="zh-Hans">拜访阳光海岸日光禅寺</span></a></p><p class="en" lang="en">Walking, sitting meditation and a Dharma talk.</p>
-<p class="zh" lang="zh-Hans">行禅、坐禅与佛法开示。</p><a class="textlink" href="event-sunlight-chan-temple-2026.html"><span class="en" lang="en">Read the full story →</span><span class="zh" lang="zh-Hans">阅读全文 →</span></a></div>
-      </li>
-      <li class="event" id="e-qualicum-retreat-2026">
-        <a class="event__thumb" href="event-qualicum-retreat-2026.html" tabindex="-1" aria-hidden="true"><img src="assets/img/events/25eada884d4e.jpg" alt="" loading="lazy"></a>
-        <div><span class="event__date"><span class="en" lang="en">18–21 March 2026</span><span class="zh" lang="zh-Hans">2026年3月18–21日</span></span><span class="event__place"><span class="en" lang="en">Qualicum Beach, Vancouver Island</span><span class="zh" lang="zh-Hans">Qualicum Beach</span></span></div>
-        <div><p class="event__title"><a href="event-qualicum-retreat-2026.html"><span class="en" lang="en">Mindful Climbing and Wellness Retreat</span><span class="zh" lang="zh-Hans">Qualicum Beach 练心爬山养生活动</span></a></p><p class="en" lang="en">Members gathered for yoga, standing-post practice, mindful climbing, listening by the sea, Dharma discussion and tea.</p>
-<p class="zh" lang="zh-Hans">瑜伽、站桩、正念登山、海边聆听、佛法讨论与茶。</p><a class="textlink" href="event-qualicum-retreat-2026.html"><span class="en" lang="en">Read the full story →</span><span class="zh" lang="zh-Hans">阅读全文 →</span></a></div>
-      </li>
-      <li class="event" id="e-dahongpao-2024">
-        <a class="event__thumb" href="event-dahongpao-2024.html" tabindex="-1" aria-hidden="true"><img src="assets/img/events/70ea6ceb46d6.jpg" alt="" loading="lazy"></a>
-        <div><span class="event__date"><span class="en" lang="en">17 November 2024</span><span class="zh" lang="zh-Hans">2024年11月17日</span></span><span class="event__place"><span class="en" lang="en">Wuyishan, Fujian</span><span class="zh" lang="zh-Hans">武夷山</span></span></div>
-        <div><p class="event__title"><a href="event-dahongpao-2024.html"><span class="en" lang="en">12th Dahongpao Chan Tea Culture Exchange</span><span class="zh" lang="zh-Hans">第十二届大红袍禅茶文化交流活动</span></a></p><p class="en" lang="en">Guests from the United States, Canada, France, Japan, Germany, Australia and India gathered under the theme “Let the World See China’s Dahongpao.”</p>
-<p class="zh" lang="zh-Hans">来自美国、加拿大、法国、日本、德国、澳大利亚、印度及台湾、澳门的来宾共聚。</p><a class="textlink" href="event-dahongpao-2024.html"><span class="en" lang="en">Read the full story →</span><span class="zh" lang="zh-Hans">阅读全文 →</span></a></div>
-      </li>
-      <li class="event" id="e-tea-and-the-world-2023">
-        <a class="event__thumb" href="event-tea-and-the-world-2023.html" tabindex="-1" aria-hidden="true"><img src="assets/img/events/21ade9e56dc0.jpg" alt="" loading="lazy"></a>
-        <div><span class="event__date"><span class="en" lang="en">16–18 November 2023</span><span class="zh" lang="zh-Hans">2023年11月16–18日</span></span><span class="event__place"><span class="en" lang="en">Wuyishan, Fujian</span><span class="zh" lang="zh-Hans">武夷山</span></span></div>
-        <div><p class="event__title"><a href="event-tea-and-the-world-2023.html"><span class="en" lang="en">Tea and the World Forum</span><span class="zh" lang="zh-Hans">茶和天下论坛</span></a></p><p class="en" lang="en">More than 400 guests from cultural, tea and business circles gathered under the theme “One mountain, one water, one leaf; one Belt and Road, one pot of tea.”</p>
-<p class="zh" lang="zh-Hans">400多位文化、茶与商界来宾共聚。</p><a class="textlink" href="event-tea-and-the-world-2023.html"><span class="en" lang="en">Read the full story →</span><span class="zh" lang="zh-Hans">阅读全文 →</span></a></div>
-      </li>
+    <ol class="events" id="past-list">
+      {%- for ev in all -%}
+        {%- assign last = ev.end_date | default: ev.date | date: "%Y%m%d" | plus: 0 -%}
+        {%- if last < today %}
+      {% include event-item.html ev=ev %}
+        {%- endif -%}
+      {%- endfor %}
     </ol>
   </section>
+  <script>
+    // The site is rebuilt only when something changes, so move events that
+    // have finished since the last rebuild from "upcoming" into "past".
+    (function () {
+      var up = document.getElementById('upcoming-list'), past = document.getElementById('past-list');
+      if (!up || !past) return;
+      var d = new Date(), today = d.getFullYear() * 10000 + (d.getMonth() + 1) * 100 + d.getDate();
+      Array.prototype.slice.call(up.children).reverse().forEach(function (li) {
+        if (+li.getAttribute('data-last') < today) past.insertBefore(li, past.firstChild);
+      });
+      if (!up.children.length) up.closest('section').style.display = 'none';
+    })();
+  </script>
 
   <section id="history" class="band">
     <div class="wrap split" style="padding-block: 90px">
@@ -200,50 +114,3 @@
       </ol>
     </div>
   </section>
-
-</main>
-
-<footer id="connect" class="site-footer">
-  <div class="wrap">
-    <div class="footer-cols">
-      <div>
-        <img src="assets/img/mark-light.png" width="40" height="50" alt="" style="margin-bottom: 8px">
-        <span class="footer-brand"><span class="en" lang="en">Chan and Tea Culture International</span><span class="zh" lang="zh-Hans">国际禅茶文化联合会</span></span>
-        <p class="en" lang="en" style="max-width: 360px">Sharing and promoting Chan Tea culture. Chan and tea are one flavour.</p>
-<p class="zh" lang="zh-Hans" style="max-width: 360px">分享与弘扬禅茶文化。禅茶一味。</p>
-        <p style="max-width: 360px">708 Ski Hill Road, Bethany, ON L0A 1A0, Canada</p>
-        <a class="footer-accent" href="mailto:chanandteacultureinternational@gmail.com" style="font-family: var(--font-ui); font-size: 14px; word-break: break-all">chanandteacultureinternational@gmail.com</a>
-      </div>
-      <div>
-        <p class="footer-title"><span class="en" lang="en">Explore</span><span class="zh" lang="zh-Hans">浏览</span></p>
-        <a href="index.html#about"><span class="en" lang="en">About</span><span class="zh" lang="zh-Hans">关于我们</span></a>
-        <a href="index.html#activities"><span class="en" lang="en">Activities</span><span class="zh" lang="zh-Hans">活动</span></a>
-        <a href="events.html"><span class="en" lang="en">Events</span><span class="zh" lang="zh-Hans">活动记录</span></a>
-        <a href="events.html#history"><span class="en" lang="en">History</span><span class="zh" lang="zh-Hans">历史</span></a>
-      </div>
-      <div>
-        <p class="footer-title"><span class="en" lang="en">Organisation</span><span class="zh" lang="zh-Hans">本会</span></p>
-        <a href="governance.html#leadership"><span class="en" lang="en">Leadership</span><span class="zh" lang="zh-Hans">领导</span></a>
-        <a href="governance.html#transparency"><span class="en" lang="en">Transparency</span><span class="zh" lang="zh-Hans">透明与治理</span></a>
-        <a href="involved.html"><span class="en" lang="en">Get Involved</span><span class="zh" lang="zh-Hans">参与</span></a>
-        <a href="involved.html#contact"><span class="en" lang="en">Contact</span><span class="zh" lang="zh-Hans">联系</span></a>
-      </div>
-    </div>
-    <div class="footer-base" style="flex-direction: column">
-      <p class="en" lang="en">© <span id='year'>2026</span> Chan and Tea Culture International. All rights reserved. Chan and Tea Culture International is a federal not-for-profit corporation (1261468-5). Registered office: 708 Ski Hill Rd, Bethany ON L0A 1A0, Canada. This organisation is not a registered charity, and donations are not tax-deductible.</p>
-<p class="zh" lang="zh-Hans">© 2026 Chan and Tea Culture International（国际禅茶文化联合会）版权所有。本会为加拿大联邦非牟利机构（公司编号 1261468-5）。注册地址：708 Ski Hill Rd, Bethany ON L0A 1A0, Canada。本会不是注册慈善机构，捐赠不能抵税。</p>
-      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px">
-        <span style="display: flex; flex-wrap: wrap; gap: 8px 16px">
-          <a href="privacy.html"><span class="en" lang="en">Privacy Policy</span><span class="zh" lang="zh-Hans">隐私政策</span></a>
-          <a href="accessibility.html"><span class="en" lang="en">Accessibility</span><span class="zh" lang="zh-Hans">无障碍</span></a>
-          <a href="involved.html#contact"><span class="en" lang="en">Contact</span><span class="zh" lang="zh-Hans">联系</span></a>
-        </span>
-        <a href="https://hammock.earth" rel="noopener">Made with Hammock.Earth</a>
-      </div>
-    </div>
-  </div>
-</footer>
-
-<script src="assets/js/main.js"></script>
-</body>
-</html>

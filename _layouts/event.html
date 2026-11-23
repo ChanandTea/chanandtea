@@ -1,0 +1,40 @@
+---
+layout: default
+---
+{%- capture den -%}{% include event-date.html ev=page mode="en" %}{%- endcapture -%}
+{%- capture dzh -%}{% include event-date.html ev=page mode="zh" %}{%- endcapture -%}
+{%- assign zhlang = "zh-Hans" -%}{%- if page.zh_traditional -%}{%- assign zhlang = "zh-Hant" -%}{%- endif -%}
+  <section class="wrap intro" style="padding-bottom: 32px">
+    <div class="intro__main">
+      <a class="textlink" href="events.html"><span class="en" lang="en">← All events</span><span class="zh" lang="zh-Hans">← 全部活动</span></a>
+      <p class="eyebrow"><span class="en" lang="en">{% if page.place_en and page.place_en != "" %}{{ page.place_en }} — {% endif %}{{ den }}</span><span class="zh" lang="zh-Hans">{% if page.place_zh and page.place_zh != "" %}{{ page.place_zh }}——{% endif %}{{ dzh }}</span></p>
+      <h1 class="h-section"><span class="en" lang="en">{{ page.article_title_en | default: page.title_en }}</span><span class="zh" lang="{{ zhlang }}">{{ page.article_title_zh | default: page.title_zh | default: page.title_en }}</span></h1>
+    </div>
+  </section>
+  <article class="wrap article">
+    {%- if page.cover and page.cover != "" %}
+    <div class="figure-wide"><figure><a href="{% include img-src.html path=page.cover %}" target="_blank" rel="noopener"><img src="{% include img-src.html path=page.cover %}" alt="{{ page.cover_caption_en | escape }}"></a>{% if page.cover_caption_en and page.cover_caption_en != "" %}<figcaption><span class="en" lang="en">{{ page.cover_caption_en }}</span><span class="zh" lang="{{ zhlang }}">{{ page.cover_caption_zh | default: page.cover_caption_en }}</span></figcaption>{% endif %}</figure></div>
+    {%- endif %}
+    <div class="article__body en" lang="en">
+{{ page.body_en | replace: 'src="/assets/', 'src="assets/' | markdownify }}
+    </div>
+    <div class="article__body zh" lang="{{ zhlang }}">
+{{ page.body_zh | default: page.body_en | replace: 'src="/assets/', 'src="assets/' | markdownify }}
+    </div>
+    {%- if page.photos and page.photos.size > 0 %}
+    <h2 class="article__photos"><span class="en" lang="en">Photographs</span><span class="zh" lang="zh-Hans">照片</span></h2>
+    <div class="gallery">
+      {%- for ph in page.photos -%}
+      {%- if ph.image and ph.image != "" -%}
+      <figure><a href="{% include img-src.html path=ph.image %}" target="_blank" rel="noopener"><img src="{% include img-src.html path=ph.image %}" alt="{{ ph.caption_en | escape }}" loading="lazy"></a>{% if ph.caption_en and ph.caption_en != "" %}<figcaption><span class="en" lang="en">{{ ph.caption_en }}</span><span class="zh" lang="{{ zhlang }}">{{ ph.caption_zh | default: ph.caption_en }}</span></figcaption>{% endif %}</figure>
+      {%- endif -%}
+      {%- endfor %}
+    </div>
+    {%- endif %}
+  </article>
+  <section class="wrap" style="padding-bottom: 100px">
+    <nav class="article-nav" aria-label="More events">
+      {%- if page.previous -%}<a href="{{ page.previous.url | remove_first: '/' }}"><span class="label"><span class="en" lang="en">← Earlier</span><span class="zh" lang="zh-Hans">← 较早</span></span><span class="article-nav__t"><span class="en" lang="en">{{ page.previous.title_en }}</span><span class="zh" lang="zh-Hans">{{ page.previous.title_zh | default: page.previous.title_en }}</span></span></a>{%- else -%}<span></span>{%- endif -%}
+      {%- if page.next -%}<a href="{{ page.next.url | remove_first: '/' }}" style="text-align: right"><span class="label"><span class="en" lang="en">Later →</span><span class="zh" lang="zh-Hans">较新 →</span></span><span class="article-nav__t"><span class="en" lang="en">{{ page.next.title_en }}</span><span class="zh" lang="zh-Hans">{{ page.next.title_zh | default: page.next.title_en }}</span></span></a>{%- else -%}<span></span>{%- endif -%}
+    </nav>
+  </section>

@@ -1,0 +1,2 @@
+{%- assign ev = include.ev -%}
+<a class="ecard {{ include.cls }}" href="{{ ev.url | remove_first: '/' }}">{% include event-thumb.html ev=ev %}<span class="ecard__body"><span class="family__url">{% include event-date.html ev=ev %}</span><span class="family__name"><span class="en" lang="en">{{ ev.title_en }}</span><span class="zh" lang="zh-Hans">{{ ev.title_zh | default: ev.title_en }}</span></span><span class="family__desc"><span class="en" lang="en">{{ ev.summary_en }}</span><span class="zh" lang="zh-Hans">{{ ev.summary_zh | default: ev.summary_en }}</span></span></span></a>

@@ -1,9 +1,12 @@
+{%- capture ten -%}{%- if page.collection == "events" -%}{{ page.article_title_en | default: page.title_en }} · Chan and Tea Culture International{%- else -%}{{ page.title_en }}{%- endif -%}{%- endcapture -%}
+{%- capture tzh -%}{%- if page.collection == "events" -%}{{ page.article_title_zh | default: page.title_zh }} · 国际禅茶文化联合会{%- else -%}{{ page.title_zh }}{%- endif -%}{%- endcapture -%}
+{%- if page.collection == "events" -%}{%- assign nav = "events.html" -%}{%- else -%}{%- assign nav = page.nav -%}{%- endif -%}
 <!doctype html>
-<html lang="en-CA" data-lang="en" data-title-en="Visit to Sunlight Chan Temple, Sunshine Coast, 27 April 2026 · Chan and Tea Culture International" data-title-zh="拜訪陽光海岸日光禪寺，2026年4月27日 · 国际禅茶文化联合会">
+<html lang="en-CA" data-lang="en" data-title-en="{{ ten | escape }}" data-title-zh="{{ tzh | escape }}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Visit to Sunlight Chan Temple, Sunshine Coast, 27 April 2026 · Chan and Tea Culture International</title>
+<title>{{ ten | escape }}</title>
 <script>
   // Set the language before first paint so the page never flashes the wrong one.
   (function () {
@@ -13,7 +16,7 @@
     document.documentElement.setAttribute('data-lang', l);
   })();
 </script>
-<meta name="description" content="Walking, sitting meditation and a Dharma talk.">
+<meta name="description" content="{{ page.description | default: page.summary_en | default: site.description | strip_html | escape }}">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
@@ -44,48 +47,19 @@
       </button>
     </div>
     <nav class="nav" id="site-nav" aria-label="Main">
-      <a href="index.html"><span class="en" lang="en">Home</span><span class="zh" lang="zh-Hans">首页</span></a>
-      <a href="index.html#about"><span class="en" lang="en">About</span><span class="zh" lang="zh-Hans">关于我们</span></a>
-      <a href="index.html#activities"><span class="en" lang="en">Activities</span><span class="zh" lang="zh-Hans">活动</span></a>
-      <a href="events.html" aria-current="page"><span class="en" lang="en">Events</span><span class="zh" lang="zh-Hans">活动记录</span></a>
-      <a href="governance.html"><span class="en" lang="en">Leadership &amp; Governance</span><span class="zh" lang="zh-Hans">领导与治理</span></a>
-      <a href="involved.html#contact"><span class="en" lang="en">Contact</span><span class="zh" lang="zh-Hans">联系</span></a>
+      <a href="index.html"{% if nav == "index.html" %} aria-current="page"{% endif %}><span class="en" lang="en">Home</span><span class="zh" lang="zh-Hans">首页</span></a>
+      <a href="index.html#about"{% if nav == "index.html#about" %} aria-current="page"{% endif %}><span class="en" lang="en">About</span><span class="zh" lang="zh-Hans">关于我们</span></a>
+      <a href="index.html#activities"{% if nav == "index.html#activities" %} aria-current="page"{% endif %}><span class="en" lang="en">Activities</span><span class="zh" lang="zh-Hans">活动</span></a>
+      <a href="events.html"{% if nav == "events.html" %} aria-current="page"{% endif %}><span class="en" lang="en">Events</span><span class="zh" lang="zh-Hans">活动记录</span></a>
+      <a href="governance.html"{% if nav == "governance.html" %} aria-current="page"{% endif %}><span class="en" lang="en">Leadership &amp; Governance</span><span class="zh" lang="zh-Hans">领导与治理</span></a>
+      <a href="involved.html#contact"{% if nav == "involved.html#contact" %} aria-current="page"{% endif %}><span class="en" lang="en">Contact</span><span class="zh" lang="zh-Hans">联系</span></a>
       <a class="btn btn--primary" href="involved.html"><span class="en" lang="en">Get Involved</span><span class="zh" lang="zh-Hans">参与</span></a>
     </nav>
   </div>
 </header>
 
 <main id="main">
-
-  <section class="wrap intro" style="padding-bottom: 32px">
-    <div class="intro__main">
-      <a class="textlink" href="events.html"><span class="en" lang="en">← All events</span><span class="zh" lang="zh-Hans">← 全部活动</span></a>
-      <p class="eyebrow"><span class="en" lang="en">SUNSHINE COAST — 27 April 2026</span><span class="zh" lang="zh-Hans">陽光海岸——2026年4月27日</span></p>
-      <h1 class="h-section"><span class="en" lang="en">Visit to Sunlight Chan Temple, Sunshine Coast, 27 April 2026</span><span class="zh" lang="zh-Hans">拜訪陽光海岸日光禪寺，2026年4月27日</span></h1>
-    </div>
-  </section>
-  <article class="wrap article">
-<div class="article__body en" lang="en">
-<p>President Venerable Tiankong (天空法師) and Vice-President Venerable Daojing (道憬法師) led a group to visit Sunshine Ch’an Temple (日光禪寺) on the Sunshine Coast on 27 April 2026.</p>
-<div class="figure-wide"><figure><a href="assets/img/events/f84afdded7ad.jpg" target="_blank" rel="noopener"><img src="assets/img/events/f84afdded7ad.jpg" alt="" loading="lazy"></a></figure></div>
-<p>There was walking, sitting meditation, and a Dharma talk.</p>
-<h2>More photographs</h2>
-<div class="gallery"><figure><a href="assets/img/events/3851296d2dd2.jpg" target="_blank" rel="noopener"><img src="assets/img/events/3851296d2dd2.jpg" alt="" loading="lazy"></a></figure><figure><a href="assets/img/events/7ccb1929c770.jpg" target="_blank" rel="noopener"><img src="assets/img/events/7ccb1929c770.jpg" alt="" loading="lazy"></a></figure><figure><a href="assets/img/events/664b57795c48.jpg" target="_blank" rel="noopener"><img src="assets/img/events/664b57795c48.jpg" alt="" loading="lazy"></a></figure><figure><a href="assets/img/events/80c496e1536b.jpg" target="_blank" rel="noopener"><img src="assets/img/events/80c496e1536b.jpg" alt="" loading="lazy"></a></figure><figure><a href="assets/img/events/d437bc46115b.jpg" target="_blank" rel="noopener"><img src="assets/img/events/d437bc46115b.jpg" alt="" loading="lazy"></a></figure></div>
-<p class="article__closing">Chan and Tea Culture International promotes Chan — the Chinese Buddhist Chan school — and Chinese tea culture. Through tea, the association offers a way into stillness, compassion and harmony: a quiet bowl of tea, shared with others, can help the mind settle, open the heart, and bring people together in peace.</p>
-</div>
-<div class="article__body zh" lang="zh-Hant">
-<p>2026年4月27日，會長天空法師、副會長道憬法師帶領大家拜訪陽光海岸的日光禪寺。</p>
-<div class="figure-wide"><figure><a href="assets/img/events/f84afdded7ad.jpg" target="_blank" rel="noopener"><img src="assets/img/events/f84afdded7ad.jpg" alt="" loading="lazy"></a></figure></div>
-<p>活動包括走路、打坐和開示。</p>
-<h2>更多照片</h2>
-<div class="gallery"><figure><a href="assets/img/events/3851296d2dd2.jpg" target="_blank" rel="noopener"><img src="assets/img/events/3851296d2dd2.jpg" alt="" loading="lazy"></a></figure><figure><a href="assets/img/events/7ccb1929c770.jpg" target="_blank" rel="noopener"><img src="assets/img/events/7ccb1929c770.jpg" alt="" loading="lazy"></a></figure><figure><a href="assets/img/events/664b57795c48.jpg" target="_blank" rel="noopener"><img src="assets/img/events/664b57795c48.jpg" alt="" loading="lazy"></a></figure><figure><a href="assets/img/events/80c496e1536b.jpg" target="_blank" rel="noopener"><img src="assets/img/events/80c496e1536b.jpg" alt="" loading="lazy"></a></figure><figure><a href="assets/img/events/d437bc46115b.jpg" target="_blank" rel="noopener"><img src="assets/img/events/d437bc46115b.jpg" alt="" loading="lazy"></a></figure></div>
-<p class="article__closing">國際禪茶文化聯合會致力於弘揚禪——中國佛教禪宗——與中國茶文化。透過一杯茶，協會希望為大眾帶來寧靜、慈悲與和諧：一碗靜靜分享的茶，可以幫助心安定下來，打開心胸，讓人們在和平中共聚。</p>
-</div>
-  </article>
-  <section class="wrap" style="padding-bottom: 100px">
-    <nav class="article-nav" aria-label="More events"><a href="event-qualicum-retreat-2026.html"><span class="label"><span class="en" lang="en">← Earlier</span><span class="zh" lang="zh-Hans">← 较早</span></span><span class="article-nav__t"><span class="en" lang="en">Mindful Climbing and Wellness Retreat</span><span class="zh" lang="zh-Hans">Qualicum Beach 练心爬山养生活动</span></span></a><a href="event-venerable-guoqing-2026.html" style="text-align: right"><span class="label"><span class="en" lang="en">Later →</span><span class="zh" lang="zh-Hans">较新 →</span></span><span class="article-nav__t"><span class="en" lang="en">Buddhist Ethics of the 21st Century</span><span class="zh" lang="zh-Hans">二十一世纪佛教伦理：果清律师佛法讲座</span></span></a></nav>
-  </section>
-
+{{ content }}
 </main>
 
 <footer id="connect" class="site-footer">
