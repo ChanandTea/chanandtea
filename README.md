@@ -1,8 +1,6 @@
 # Chan and Tea Culture International
 
-Static bilingual (English / 中文) website for Chan and Tea Culture International,
-a federal not-for-profit corporation in Canada (Corporation No. 1261468-5).
-**Not a registered charity: do not show a charity number or promise tax receipts.**
+Static bilingual (English / 中文) website for Chan and Tea Culture International.
 
 Layout from padmarefuge.org; blue / mint glass palette (tokens at the top of styles.css). Jekyll site built automatically by GitHub Pages on every push to `main`. Events are edited through Pages CMS (https://app.pagescms.org); see EDITING-EVENTS.md.
 
