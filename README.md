@@ -2,7 +2,7 @@
 
 Static bilingual (English / 中文) website for Chan and Tea Culture International.
 
-Layout from padmarefuge.org; blue (water) and deep matcha green (green tea) glass palette (tokens at the top of styles.css). Jekyll site built automatically by GitHub Pages on every push to `main`. Events are edited through Pages CMS (https://app.pagescms.org); see EDITING-EVENTS.md.
+Blue (water) and deep matcha green (green tea) glass palette (tokens at the top of styles.css). Jekyll site built automatically by GitHub Pages on every push to `main`. Events are edited through Pages CMS (https://app.pagescms.org); see EDITING-EVENTS.md.
 
 ## Structure
 
